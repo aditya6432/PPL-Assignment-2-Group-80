@@ -33,12 +33,19 @@
 (define (preorder tree)
   (preorder-acc tree '()))
 
-(define (postorder tree)
+;; (postorder-acc tree acc) is the postorder list of tree followed by acc.
+;; Empty tree: just acc. Node: the postorder list of the left subtree,
+;; followed by the postorder list of the right subtree, followed by the node's
+;; value and then acc. The call on the left subtree is a tail call.
+(define (postorder-acc tree acc)
   (if (null? tree)
-      '()
-      (my-append (postorder (cadr tree))
-                 (my-append (postorder (caddr tree))
-                            (list (car tree))))))
+      acc
+      (postorder-acc (cadr tree)
+                     (postorder-acc (caddr tree) (cons (car tree) acc)))))
+
+;; (postorder tree) is the list of values in postorder: left, right, node.
+(define (postorder tree)
+  (postorder-acc tree '()))
 
 (define (tree-height tree)
   (if (null? tree)
