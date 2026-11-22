@@ -48,12 +48,20 @@
       (+ 1 (max (tree-height (cadr tree))
                 (tree-height (caddr tree))))))
 
-(define (leaf-count tree)
+;; (leaf-count-acc tree acc) is acc plus the number of leaves in tree.
+;; Empty tree: acc (no leaves). Leaf (both subtrees empty): acc + 1.
+;; Other node: count the right subtree into acc, then the left subtree
+;; (a tail call).
+(define (leaf-count-acc tree acc)
   (cond
-    ((null? tree) 0)
-    ((and (null? (cadr tree)) (null? (caddr tree))) 1)
-    (else (+ (leaf-count (cadr tree))
-             (leaf-count (caddr tree))))))
+    ((null? tree) acc)
+    ((and (null? (cadr tree)) (null? (caddr tree))) (+ acc 1))
+    (else (leaf-count-acc (cadr tree)
+                          (leaf-count-acc (caddr tree) acc)))))
+
+;; (leaf-count tree) is the number of leaves of tree.
+(define (leaf-count tree)
+  (leaf-count-acc tree 0))
 
 (define (print-inorder tree)
   (begin
