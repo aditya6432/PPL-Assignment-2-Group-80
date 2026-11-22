@@ -19,12 +19,19 @@
 (define (inorder tree)
   (inorder-acc tree '()))
 
-(define (preorder tree)
+;; (preorder-acc tree acc) is the preorder list of tree followed by acc.
+;; Empty tree: just acc. Node: the node's value, followed by the preorder list
+;; of the left subtree, followed by the preorder list of the right subtree and
+;; then acc.
+(define (preorder-acc tree acc)
   (if (null? tree)
-      '()
+      acc
       (cons (car tree)
-            (my-append (preorder (cadr tree))
-                       (preorder (caddr tree))))))
+            (preorder-acc (cadr tree) (preorder-acc (caddr tree) acc)))))
+
+;; (preorder tree) is the list of values in preorder: node, left, right.
+(define (preorder tree)
+  (preorder-acc tree '()))
 
 (define (postorder tree)
   (if (null? tree)
