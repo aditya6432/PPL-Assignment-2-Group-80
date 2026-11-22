@@ -1,4 +1,4 @@
-:- use_module(library(lists), [permutation/2, member/2, append/3]).
+:- use_module(library(lists), [permutation/2, member/2]).
 
 % A full assignment: every department, language and project occurs exactly once.
 possible_solution([
@@ -44,10 +44,9 @@ clue(8, Solution) :-
     member(p(_, research, Lang, data), Solution),
     Lang \= javascript.
 
-% CLUE 9: In the required output order, the AI-project friend comes before the web-project friend.
+% CLUE 9: The friend who works in the testing department prefers the AI project.
 clue(9, Solution) :-
-    append(_, [p(_, _, _, 'AI') | AfterAI], Solution),
-    member(p(_, _, _, web), AfterAI).
+    member(p(_, testing, _, 'AI'), Solution).
 
 satisfies_clues([], _).
 satisfies_clues([N | Rest], Solution) :-
