@@ -1,10 +1,5 @@
 #lang racket/base
 
-(define (my-append a b)
-  (if (null? a)
-      b
-      (cons (car a) (my-append (cdr a) b))))
-
 ;; (inorder-acc tree acc) is the inorder list of tree followed by acc.
 ;; Empty tree: just acc. Node: the inorder list of the left subtree, followed
 ;; by the node's value, followed by the inorder list of the right subtree and
