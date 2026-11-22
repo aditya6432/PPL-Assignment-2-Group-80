@@ -11,6 +11,8 @@ expression_tree(Numbers, node(Op, LeftTree, RightTree), Value) :-
     expression_tree(Right, RightTree, RightValue),
     evaluate(Op, LeftValue, RightValue, Value).
 
+% evaluate(Op, A, B, Value) holds when Value is A Op B. Division is allowed
+% only when B is not zero and A is an exact multiple of B.
 evaluate('+', A, B, Value) :- Value is A + B.
 evaluate('-', A, B, Value) :- Value is A - B.
 evaluate('*', A, B, Value) :- Value is A * B.
@@ -19,6 +21,7 @@ evaluate('/', A, B, Value) :-
     0 is A mod B,
     Value is A // B.
 
+% precedence(Op, P): * and / bind tighter (2) than + and - (1).
 precedence('+', 1).
 precedence('-', 1).
 precedence('*', 2).
@@ -37,6 +40,9 @@ operand_string(node(Op, _, _), ParentPrecedence, Side, Bare, Result) :-
     ;   Result = Bare
     ).
 
+% tree_string(Tree, Text) holds when Text is the canonical string of Tree:
+% a number for a leaf, otherwise left operand, operator, right operand, with
+% brackets added by operand_string/5.
 tree_string(leaf(N), Text) :-
     number_string(N, Text).
 tree_string(node(Op, Left, Right), Text) :-
@@ -49,6 +55,9 @@ tree_string(node(Op, Left, Right), Text) :-
     string_concat(LeftText, OperatorText, Part),
     string_concat(Part, RightText, Text).
 
+% equation_string(Numbers, Equation) holds when Numbers is split into two
+% non-empty parts, each part has an expression tree, both trees have the same
+% value, and Equation is the string "Left=Right".
 equation_string(Numbers, Equation) :-
     append(LeftNumbers, RightNumbers, Numbers),
     LeftNumbers = [_ | _],
@@ -61,13 +70,18 @@ equation_string(Numbers, Equation) :-
     string_concat(LeftText, "=", FirstPart),
     string_concat(FirstPart, RightText, Equation).
 
+% generate_equation(List, E) holds for the first valid equation E of List;
+% it fails when there is none.
 generate_equation(List, Equation) :-
     once(equation_string(List, Equation)).
 
+% all_equations(List, Es) holds when Es is the sorted, duplicate-free list of
+% all valid equations of List ([] if there are none).
 all_equations(List, Equations) :-
     findall(Equation, equation_string(List, Equation), Unsorted),
     sort(Unsorted, Equations).
 
+% count_equations(List, N) holds when N is the number of valid equations.
 count_equations(List, N) :-
     all_equations(List, Equations),
     length(Equations, N).
