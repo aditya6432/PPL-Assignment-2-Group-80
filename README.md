@@ -15,11 +15,11 @@ This project is a **draft** and **not yet a submission-ready GitHub repository**
 ## Grader commands
 
 ```sh
-swipl -q -f code/id_q1.pl -g main -t halt
-swipl -q -f code/id_q1.pl -g 'count_solutions([1,2,3,4,5,6,7,8],N),write(N)' -t halt
-swipl -q -f code/id_q2.pl -g 'all_equations([4,2,5,3],Es),write(Es)' -t halt
-racket code/id_q3.rkt
-racket code/id_q4.rkt
+swipl -q -f code/80_q1.pl -g main -t halt
+swipl -q -f code/80_q1.pl -g 'count_solutions([1,2,3,4,5,6,7,8],N),write(N)' -t halt
+swipl -q -f code/80_q2.pl -g 'all_equations([4,2,5,3],Es),write(Es)' -t halt
+racket code/80_q3.rkt
+racket code/80_q4.rkt
 ```
 
 The two Racket files must print nothing when loaded; the grader appends its own calls.

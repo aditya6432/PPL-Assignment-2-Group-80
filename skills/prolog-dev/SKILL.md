@@ -14,11 +14,11 @@ description: Develop and review small SWI-Prolog 9.x predicates for the CS F301 
 
 ## Run and test
 
-`swipl -q -f code/id_q1.pl -g main -t halt`
+`swipl -q -f code/80_q1.pl -g main -t halt`
 
-`swipl -q -f code/id_q1.pl -g "count_solutions([1,2,3,4,5,6,7,8],N),write(N)" -t halt`
+`swipl -q -f code/80_q1.pl -g "count_solutions([1,2,3,4,5,6,7,8],N),write(N)" -t halt`
 
-`swipl -q -f code/id_q2.pl -g "all_equations([4,2,5,3],Es),write(Es)" -t halt`
+`swipl -q -f code/80_q2.pl -g "all_equations([4,2,5,3],Es),write(Es)" -t halt`
 
 Run the independent scripts in `tests/` too; include unsatisfiable lists, empty inputs, repetitions, negative intermediate values, and the exact canonical-string examples.
 

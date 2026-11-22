@@ -14,9 +14,9 @@ description: Develop and review one Racket 8.x Scheme function or test unit at a
 
 ## Run and test
 
-`racket code/id_q3.rkt`
+`racket code/80_q3.rkt`
 
-`racket code/id_q4.rkt`
+`racket code/80_q4.rkt`
 
 These programs should print nothing when loaded. Tests may construct temporary copies with calls appended to the end, matching the grader's behavior. Use the shell tests in `tests/` for standard cases and deep/long nested lists.
 

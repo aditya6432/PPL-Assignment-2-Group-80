@@ -4,7 +4,7 @@ cd "$(dirname "$0")/.."
 
 test_file="$(mktemp --suffix=.rkt)"
 trap 'rm -f "$test_file"' EXIT
-cp code/id_q4.rkt "$test_file"
+cp code/80_q4.rkt "$test_file"
 printf '%s\n' \
   '(display (insert-if-short 42 (quote ((1 2) (3 4 5) (6) ())) 3)) (newline)' \
   '(display (insert-if-short 0 (quote (((1) 2) (3) ((4 5 6) ()))) 3)) (newline)' \

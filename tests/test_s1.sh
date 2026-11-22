@@ -4,7 +4,7 @@ cd "$(dirname "$0")/.."
 
 test_file="$(mktemp --suffix=.rkt)"
 trap 'rm -f "$test_file"' EXIT
-cp code/id_q3.rkt "$test_file"
+cp code/80_q3.rkt "$test_file"
 printf '%s\n' \
   '(define t1 (quote (4 (2 (1 () ()) (3 () ())) (6 (5 () ()) (7 () ())))))' \
   '(print-all-traversals t1)' \
