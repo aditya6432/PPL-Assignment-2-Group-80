@@ -5,11 +5,19 @@
       b
       (cons (car a) (my-append (cdr a) b))))
 
-(define (inorder tree)
+;; (inorder-acc tree acc) is the inorder list of tree followed by acc.
+;; Empty tree: just acc. Node: the inorder list of the left subtree, followed
+;; by the node's value, followed by the inorder list of the right subtree and
+;; then acc. The call on the left subtree is a tail call.
+(define (inorder-acc tree acc)
   (if (null? tree)
-      '()
-      (my-append (inorder (cadr tree))
-                 (cons (car tree) (inorder (caddr tree))))))
+      acc
+      (inorder-acc (cadr tree)
+                   (cons (car tree) (inorder-acc (caddr tree) acc)))))
+
+;; (inorder tree) is the list of values in inorder: left, node, right.
+(define (inorder tree)
+  (inorder-acc tree '()))
 
 (define (preorder tree)
   (if (null? tree)
