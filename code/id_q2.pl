@@ -28,12 +28,14 @@ precedence('/', 2).
 operand_string(leaf(_), _, _, Bare, Bare).
 operand_string(node(Op, _, _), ParentPrecedence, Side, Bare, Result) :-
     precedence(Op, ChildPrecedence),
-    (   ChildPrecedence < ParentPrecedence
-    ;   Side = right, ChildPrecedence =:= ParentPrecedence
-    ) ->
+    (   (   ChildPrecedence < ParentPrecedence
+        ;   Side == right, ChildPrecedence =:= ParentPrecedence
+        )
+    ->
         string_concat("(", Bare, Start),
         string_concat(Start, ")", Result)
-    ;   Result = Bare.
+    ;   Result = Bare
+    ).
 
 tree_string(leaf(N), Text) :-
     number_string(N, Text).
