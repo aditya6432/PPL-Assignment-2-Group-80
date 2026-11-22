@@ -11,7 +11,9 @@ File: `code/80_q1.pl`
 - Implements the logic puzzle using Prolog.
 - Provides a predicate to count valid solutions.
 - Clues 1–8 produce 3 solutions.
-- Adding clue 9 reduces the count to 1.
+- Clue 9 ("the friend who works in the testing department prefers
+  the AI project") refers to friends only through attribute values
+  and reduces the count to 1.
 - The solution and ninth-clue explanation are documented
   in `P1_REPORT.md`.
 
@@ -27,11 +29,10 @@ File: `code/80_q2.pl`
 ### S1 — Racket Binary Trees
 File: `code/80_q3.rkt`
 
-- Implements inorder traversal.
-- Implements preorder traversal.
-- Implements postorder traversal.
+- Implements inorder, preorder and postorder traversals, each
+  built in one pass with an accumulator (linear time).
 - Calculates binary-tree height.
-- Counts leaf nodes.
+- Counts leaf nodes with an accumulator.
 
 ### S2 — Racket List Processing
 File: `code/80_q4.rkt`
@@ -59,7 +60,12 @@ bash tests/test_s1.sh
 bash tests/test_s2.sh
 ```
 
-All four test scripts passed during local verification.
+Each script prints PASS or FAIL for every check and exits with a
+non-zero status if any check fails. They cover the examples in the
+assignment plus edge cases, large inputs (P2 lists of length 8, S1
+trees of 10,000 nodes, S2 nesting depth 100 and 10,000-element lists),
+and S2.a through standard input. All four scripts passed with
+SWI-Prolog 9.0.4 and Racket 8.10.
 
 ## Running the Programs
 
@@ -103,14 +109,12 @@ during the review process and the corresponding findings.
 
 ## Implementation Notes
 
-The P1 ninth clue distinguishes solutions using the
-relative positions of project attributes in the required
-solution-list order.
-
-This introduces a possible interpretation issue if the
-ninth clue is expected to be independent of list ordering.
-
-The issue is explained in `P1_REPORT.md`.
+Two of the three solutions of clues 1–8 contain the same
+(department, language, project) triples, so no clue that uses only
+attribute values can separate them. The ninth clue therefore keeps
+Solution 2 of `P1_REPORT.md`, the only one an attribute-only clue can
+single out. An earlier position-based ninth clue was replaced. See
+`P1_REPORT.md`.
 
 ## Repository Structure
 
