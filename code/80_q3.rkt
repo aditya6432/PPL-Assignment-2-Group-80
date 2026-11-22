@@ -1,5 +1,9 @@
 #lang racket/base
 
+;; S1: binary tree traversals. A tree is () or a list (value left right).
+;; Only the built-ins allowed by the assignment are used, and all state is
+;; passed through function arguments.
+
 ;; (inorder-acc tree acc) is the inorder list of tree followed by acc.
 ;; Empty tree: just acc. Node: the inorder list of the left subtree, followed
 ;; by the node's value, followed by the inorder list of the right subtree and
@@ -42,6 +46,8 @@
 (define (postorder tree)
   (postorder-acc tree '()))
 
+;; (tree-height tree) is 0 for the empty tree, and for a node 1 plus the
+;; larger of the heights of its two subtrees (so a single node has height 1).
 (define (tree-height tree)
   (if (null? tree)
       0
@@ -63,11 +69,13 @@
 (define (leaf-count tree)
   (leaf-count-acc tree 0))
 
+;; Prints the inorder list of tree on one line.
 (define (print-inorder tree)
   (begin
     (display (inorder tree))
     (newline)))
 
+;; Prints the inorder, preorder and postorder lists of tree, one per line.
 (define (print-all-traversals tree)
   (begin
     (display (inorder tree))
@@ -77,6 +85,7 @@
     (display (postorder tree))
     (newline)))
 
+;; Prints the list (height leaf-count) of tree on one line.
 (define (print-height-and-leaves tree)
   (begin
     (display (list (tree-height tree) (leaf-count tree)))
